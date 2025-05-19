@@ -10,8 +10,6 @@ function Voting() {
         setCurrentPhase
     } = useGame();
 
-    console.log(useGame());
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedPlayer, setSelectedPlayer] = useState(null);
     const [isLastVote, setIsLastVote] = useState(false);

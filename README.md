@@ -1,12 +1,57 @@
-# React + Vite
+# 🐺 Werewolf: The Ultimate Night
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Werewolf: The Ultimate Night** is a party-style social deduction game built with React and Vite. Play locally or share a device with friends — bluff, deduce, and survive the night!
 
-Currently, two official plugins are available:
+> ⚔️ *"Trust no one. Reveal everything. Only the cunning survive the night."*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Live Demo
+**Play here:** [https://werewolf-nu.vercel.app/](https://werewolf-nu.vercel.app/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🎮 Game Features
+
+- 🧠 **Role-Based Gameplay**: Each player gets a secret role with unique night actions.
+- 🌙 **Night Phase Logic**: All roles act in a specific sequence with proper resolution.
+- 🗳️ **Voting Phase**: Discuss, accuse, and vote to eliminate a suspect.
+- 📜 **Final Reveal**: See what happened at night and who truly won.
+
+---
+
+## 🧩 Implemented Roles
+
+| Team        | Roles                                                                 |
+|-------------|-----------------------------------------------------------------------|
+| Werewolf    | `Werewolf`, `Minion`, `DreamWolf`, `MysticWolf`                      |
+| Village     | `Mason`, `Sentinel`, `Seer`, `Robber`, `TroubleMaker`, `Insomniac`   |
+| Chaos       | `Drunk`, `Witch`, `Clone`, `Joker`                                   |
+
+---
+
+## 🛠️ Tech Stack
+
+- ⚡ [Vite](https://vitejs.dev/) for fast development
+- ⚛️ [React](https://reactjs.org/) for UI
+- 🎨 [Tailwind CSS](https://tailwindcss.com/) for styling
+- 💡 State-based phase system for game logic
+- 🔄 Modular component design for each role
+
+
+---
+
+## 🧪 How to Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/omerelkholy/Werewolf.git
+
+# Navigate to the project
+cd Werewolf
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev

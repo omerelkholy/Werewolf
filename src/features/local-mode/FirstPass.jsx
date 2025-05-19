@@ -28,8 +28,6 @@ function FirstPass() {
     }
 
 
-    console.log(useGame())
-
     return (
         <>
             <p className="m-5">{currentPlayer}</p>

@@ -25,7 +25,6 @@ function SecondPass() {
   const clonedAction = actions.find((a) => a.player === currentPlayer && a.data.cloned);
 
 
-  console.log(useGame())
 
   let displayRole = originalRole;
   let resultInfo = [];
