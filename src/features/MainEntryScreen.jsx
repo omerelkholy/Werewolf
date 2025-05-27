@@ -26,11 +26,7 @@ function MainEntryScreen({ onStart }) {
 
   return (
     <div
-      className="relative w-full h-screen bg-cover bg-center overflow-hidden"
-      style={{
-        backgroundImage: 'url(/assets/bg-desktop.jpg)',
-      }}
-    >
+      className="relative w-full h-screen bg-cover bg-center overflow-hidden">
       <style>
         {`
           @keyframes drift {

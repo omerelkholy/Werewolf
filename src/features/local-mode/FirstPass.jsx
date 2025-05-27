@@ -17,9 +17,6 @@ function FirstPass() {
     const [pendingAction, setPendingAction] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-
-    console.log(useGame());
-
     const currentPlayer = players[currentIndex];
     const role = assignedRoles[currentPlayer];
 

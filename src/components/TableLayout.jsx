@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useGame } from "../context/GameContext";
 import BackCard from "../../public/images/backCard.png"
+import Table from "../../public/images/table.png"
 
 const TableLayout = ({
   players,
@@ -118,7 +119,7 @@ const TableLayout = ({
         {/* Table background - conditional rendering based on isModal */}
         {isModal ? (
           <img
-            src="../../public/images/table.png"
+            src={Table}
             alt="table"
             className="absolute inset-0 w-full h-full object-contain pointer-events-none"
           />
