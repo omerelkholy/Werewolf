@@ -14,13 +14,19 @@ import WerewolfAction from "../roles/WerewolfAction";
 import WitchAction from "../roles/WitchAction";
 import PrimaryButton from "./PrimaryButton";
 
-function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, name }) {
-
+function RoleActionWrapper({ player, role, onComplete, name, randomColor }) {
     if (!role.effect.effectName) {
         return null;
     }
 
-    const effect = role.effect.effectName
+    const effect = role.effect.effectName;
+
+    // Helper function to handle action completion
+    const handleActionSubmit = (data) => {
+        setTimeout(() => {
+            onComplete(data);
+        }, 50);
+    };
 
     switch (effect) {
         case "silentHowl":
@@ -29,12 +35,8 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <WerewolfAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
                 />
             )
         case "wolfFanboy":
@@ -43,12 +45,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <MinionAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "truthSeeker.exe":
@@ -57,12 +56,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <MasonAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "doublePeek":
@@ -71,40 +67,31 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <SeerAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "ninjaHeist":
-            //* Robber component
+            //* Robber component - This one needs TableLayout
             return (
                 <RobberAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "switcharoo":
-            //* TroubleMaker component
+            //* TroubleMaker component - This one might also need TableLayout
             return (
                 <TroubleMakerAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "oopsIClickedIt":
@@ -113,12 +100,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <DrunkAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "MirrorImage":
@@ -127,11 +111,13 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <CloneAction
                     player={player}
                     name={name}
+                    randomColor={randomColor}
                     onSubmit={() => {
                         setTimeout(() => {
                             onComplete();
                         }, 50);
                     }}
+
                 />
             );
         case "SelfDestruct":
@@ -140,12 +126,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <JokerAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "CaffeinePoweredSpy":
@@ -154,12 +137,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <InsomniacAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "SniffingSecrets":
@@ -168,12 +148,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <MysticWolfAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "PotionRoulette":
@@ -182,12 +159,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <WitchAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "LucidLiar":
@@ -196,12 +170,9 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <DreamWolfAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         case "CapedGuard":
@@ -210,34 +181,26 @@ function RoleActionWrapper({ player, role, submitAction, onComplete, onSubmit, n
                 <SentinelAction
                     player={player}
                     name={name}
-                    onSubmit={(data) => {
-                        submitAction(player, role.roleName, data);
-                        setTimeout(() => {
-                            onComplete();
-                        }, 50);
-                    }}
+                    onSubmit={handleActionSubmit}
+                    randomColor={randomColor}
+
                 />
             )
         default:
             //? default condition
             return (
                 <>
-                    <p>{player} has no custom action</p>
+                    <p className="mb-4">{player} has no custom action</p>
                     <PrimaryButton
-                        onClick={() => {
-                            submitAction(player, role.roleName, null);
-                            setTimeout(() => {
-                                onSubmit();
-                            }, 50);
-                        }}
+                        onClick={() => handleActionSubmit(null)}
                         name={name}
                         color="green"
                     />
                 </>
             );
     }
-
-
 }
 
 export default RoleActionWrapper;
+
+

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useGame } from "../context/GameContext";
-import PrimaryButton from "../components/PrimaryButton";
+import TableLayout from "../components/TableLayout";
+import { motion, AnimatePresence } from "framer-motion";
 
-// Import action components
+// Import role action components
 import RobberAction from "./RobberAction";
 import TroubleMakerAction from "./TroubleMakerAction";
 import WitchAction from "./WitchAction";
@@ -10,111 +11,118 @@ import SeerAction from "./SeerAction";
 import SentinelAction from "./SentinelAction";
 import MysticWolfAction from "./MysticWolfAction";
 import DrunkAction from "./DrunkAction";
-// Add other actions as needed...
 
-function CloneAction({ player, onSubmit, name }) {
-    const { players, originalRoles, submitAction } = useGame();
-    const [targetedPlayer, setTargetedPlayer] = useState(null);
-    const [cloneActionSubmitted, setCloneActionSubmitted] = useState(false);
+function CloneAction({ player, onSubmit, name, randomColor }) {
+  const { players, originalRoles, submitAction } = useGame();
+  const [cloneConfirmed, setCloneConfirmed] = useState(false);
+  const [targetedPlayer, setTargetedPlayer] = useState(null);
 
-    const clonedRole = targetedPlayer ? originalRoles[targetedPlayer]?.roleName : null;
+  const clonedRole = targetedPlayer ? originalRoles[targetedPlayer]?.roleName : null;
 
-    // Map role names to their action components
-    const ActionComponentMap = {
-        Seer: SeerAction,
-        Robber: RobberAction,
-        TroubleMaker: TroubleMakerAction,
-        Witch: WitchAction,
-        Sentinel: SentinelAction,
-        Drunk: DrunkAction,
-        MysticWolf: MysticWolfAction,
-    };
+  const ActionComponentMap = {
+    Seer: SeerAction,
+    Robber: RobberAction,
+    TroubleMaker: TroubleMakerAction,
+    Witch: WitchAction,
+    Sentinel: SentinelAction,
+    Drunk: DrunkAction,
+    MysticWolf: MysticWolfAction,
+  };
 
-    const ClonedActionComponent = clonedRole && ActionComponentMap[clonedRole];
+  const ClonedActionComponent = clonedRole && ActionComponentMap[clonedRole];
+  const isMysticWolfClone = clonedRole === "MysticWolf";
 
-    const isMysticWolfClone = clonedRole === "MysticWolf";
+  const handleCloneConfirm = (selection) => {
+    if (selection?.type === 'player') {
+      const clonedTargetId = selection.id;
+      setTargetedPlayer(clonedTargetId);
 
-    const handleCloneAction = () => {
-        submitAction(player, "Clone", { target: targetedPlayer });
-        setCloneActionSubmitted(true);
+      // Submit initial clone selection
+      submitAction(player, "Clone", { target: clonedTargetId });
+      setCloneConfirmed(true);
 
-        // If no action component, complete immediately
-        if (!ClonedActionComponent) {
-            onSubmit();
-        }
-    };
+      // If no night action, skip to done
+      const role = originalRoles[clonedTargetId]?.roleName;
+      if (!ActionComponentMap[role]) {
+        onSubmit();
+      }
+    }
+  };
 
-    return (
-        <div className="m-4">
-            <p><strong>Clone:</strong> Choose a player to copy their role.</p>
+  const handleClonedActionSubmit = (actionData) => {
+    submitAction(player, clonedRole, {
+      ...actionData,
+      cloned: true,
+    });
+    onSubmit();
+  };
 
-            {!cloneActionSubmitted && (
-                <>
-                    <select
-                        value={targetedPlayer || ""}
-                        onChange={(e) => setTargetedPlayer(e.target.value)}
-                    >
-                        <option disabled value="">Pick a player</option>
-                        {players.filter((p) => p !== player).map((p) => (
-                            <option key={p} value={p}>{p}</option>
-                        ))}
-                    </select>
+  const playerOptions = players
+    .filter((p) => p !== player)
+    .map((p) => ({ id: p, name: p }));
 
-                    {targetedPlayer && (
-                        <div className="mt-4">
-                            <PrimaryButton
-                                onClick={handleCloneAction}
-                                name="Confirm Clone Target"
-                                color="green"
-                            />
-                        </div>
-                    )}
-                </>
+  return (
+    <div className="m-4">
+      <AnimatePresence mode="wait">
+        {!cloneConfirmed ? (
+          <motion.div
+            key="choose-target"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+          >
+            <TableLayout
+              players={playerOptions}
+              currentPlayerId={player}
+              title="Clone Target"
+              description="Select a player to copy their role."
+              isModal={true}
+              showGroundCards={false}
+              showPlayerCards={true}
+              allowMultipleSelection={false}
+              maxSelections={1}
+              randomColor={randomColor}
+              onConfirm={handleCloneConfirm}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="cloned-role"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {ClonedActionComponent ? (
+              <>
+                {isMysticWolfClone ? (
+                  <MysticWolfAction
+                    player={player}
+                    name={name}
+                    isCloned={true}
+                    randomColor={randomColor}
+                    onSubmit={handleClonedActionSubmit}
+                  />
+                ) : (
+                  <ClonedActionComponent
+                    player={player}
+                    name={name}
+                    randomColor={randomColor}
+                    onSubmit={handleClonedActionSubmit}
+                  />
+                )}
+              </>
+            ) : (
+              <div className="text-yellow-700 mt-4">
+                <p>This role has no night action. Tap the card to continue.</p>
+              </div>
             )}
-
-            {cloneActionSubmitted && ClonedActionComponent && (
-                <div className="mt-4">
-                    <p>You cloned <strong>{targetedPlayer}</strong> who is a <strong>{clonedRole}</strong>.</p>
-                    <p>Now perform their role action:</p>
-
-                    {isMysticWolfClone ? (
-                        <>
-                            <div className="mt-4 text-yellow-700">
-                                <p>You cloned <strong>{targetedPlayer}</strong> who is a <strong>{clonedRole}</strong>, but their role has no night action.</p>
-                            </div>
-                            <MysticWolfAction
-                                player={player}
-                                name={name}
-                                isCloned={true}
-                                onSubmit={(data) => {
-                                    submitAction(player, clonedRole, { ...data, cloned: true });
-                                    onSubmit();
-                                }}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <div className="mt-4 text-yellow-700">
-                                <p>You cloned <strong>{targetedPlayer}</strong> who is a <strong>{clonedRole}</strong>, but their role has no night action.</p>
-                            </div>
-
-                            <ClonedActionComponent
-                                player={player}
-                                name={name}
-                                onSubmit={(data) => {
-                                    submitAction(player, clonedRole, { ...data, cloned: true });
-                                    onSubmit();
-                                }}
-                            />
-                        </>
-                    )}
-                </div>
-            )}
-
-
-        </div>
-    );
-
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
 
 export default CloneAction;

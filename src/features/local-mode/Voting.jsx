@@ -37,31 +37,34 @@ function Voting() {
     };
 
     return (
-        <div className="p-6 text-black space-y-4">
-            <h2 className="text-2xl font-bold text-green-400">Voting Phase</h2>
-            <p><strong>{currentPlayer}</strong>, choose someone to eliminate:</p>
-            <select
-                value={selectedPlayer || ""}
-                onChange={(e) => setSelectedPlayer(e.target.value)}
-                className="w-full p-2 border rounded"
-            >
-                <option disabled value="">Pick a player</option>
-                {players.filter(p => p !== currentPlayer).map(p => (
-                    <option key={p} value={p}>{p}</option>
-                ))}
-            </select>
+        <>
+            <div className="overlay"></div>
+            <div className="p-6 z-20 text-black space-y-4">
+                <h2 className="text-2xl font-bold text-green-400">Voting Phase</h2>
+                <p><strong>{currentPlayer}</strong>, choose someone to eliminate:</p>
+                <select
+                    value={selectedPlayer || ""}
+                    onChange={(e) => setSelectedPlayer(e.target.value)}
+                    className="w-full p-2 border rounded"
+                >
+                    <option disabled value="">Pick a player</option>
+                    {players.filter(p => p !== currentPlayer).map(p => (
+                        <option key={p} value={p}>{p}</option>
+                    ))}
+                </select>
 
-            <PrimaryButton
-                name="Submit Vote"
-                onClick={handleVote}
-                color="green"
-                disabled={!selectedPlayer}
-            />
+                <PrimaryButton
+                    name="Submit Vote"
+                    onClick={handleVote}
+                    color="green"
+                    disabled={!selectedPlayer}
+                />
 
-            <div className="mt-4">
-                <p className="text-sm text-gray-600">Votes recorded: {votes.length} / {players.length}</p>
+                <div className="mt-4">
+                    <p className="text-sm text-gray-600">Votes recorded: {votes.length} / {players.length}</p>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

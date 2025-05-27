@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const PHASES = {
+    MAIN_ENTRY: 'MAIN_ENTRY',
     PLAYER_REGISTRATION: "player_registration",
     ROLE_ASSIGNMENT: "role_assignment",
     FIRST_PASS: "first_pass",
@@ -15,7 +16,7 @@ const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
     const [players, setPlayers] = useState([]);
-    const [currentPhase, setCurrentPhase] = useState(PHASES.PLAYER_REGISTRATION);
+    const [currentPhase, setCurrentPhase] = useState(PHASES.MAIN_ENTRY);
     const [assignedRoles, setAssignedRoles] = useState({});
     const [originalRoles, setOriginalRoles] = useState({});
     const [actionQueue, setActionQueue] = useState([]);

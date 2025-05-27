@@ -90,14 +90,6 @@ export const RoleAssignment = () => {
     }, [currentPhase, players, setAssignedRoles, setGroundCards, setCurrentPhase])
 
 
-    useEffect(() => {
-        if (Object.keys(assignedRoles).length > 0) {
-            console.log("Assigned Roles:", assignedRoles);
-            console.log("Ground Cards:", groundCards);
-            console.log("Players:", players);
-        }
-    }, [assignedRoles, groundCards, players]);
-
     return (
         <>
         </>

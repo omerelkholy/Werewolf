@@ -1,2 +1,33 @@
 @import "tailwindcss";
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cardo', serif;
+  background-image: url('../public/images/mobile.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
+}
+
+.card-title {
+  font-family: 'IM Fell English SC', serif;
+}
+
+@media (min-width: 640px) {
+  body {
+    background-image: url('../public/images/desktop.png');
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(0.8px);
+}

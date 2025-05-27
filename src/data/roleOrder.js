@@ -36,16 +36,16 @@ export const NIGHT_ACTION_ORDER = [
     "DreamWolf",
 ]
 
-export function createActionQueue(players, assignedRoles){
+export function createActionQueue(players, assignedRoles) {
     const queue = [];
     NIGHT_ACTION_ORDER.forEach(roleName => {
-                players.forEach((player) => {
-                    if(assignedRoles[player].roleName === roleName){
-                     queue.push({player, roleName})   
-                    }
-                })
-            });
+        players.forEach((player) => {
+            if (assignedRoles[player].roleName === roleName) {
+                queue.push({ player, roleName })
+            }
+        })
+    });
 
-            return queue;
+    return queue;
 
 }

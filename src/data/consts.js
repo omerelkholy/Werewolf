@@ -1,123 +1,123 @@
-const rolesJson = `
-[
+export const roles =
+  [
     {
       "roleName": "Werewolf",
       "team": "Villians",
       "description": "He's the devil that when villagers vote on, they win",
       "effect":
       {
-      "effectName":"silentHowl",
-      "action": "he knows every werewolf in the game"
+        "effectName": "silentHowl",
+        "action": "Knows all other werewolves in the game and if alone, he sees one ground card"
       }
     },
-  
+
     {
       "roleName": "Minion",
       "team": "Villians",
       "description": "He knows all the werewolves in the game and tries to manipulate the game making werewolves unknown",
       "effect":
       {
-      "effectName":"wolfFanboy",
-      "action": "He acts like a 5anzeer until the match ends (he might not get back as a human after tho)"
+        "effectName": "wolfFanboy",
+        "action": "Knows all werewolves but appears innocent."
       }
     },
-  
+
     {
       "roleName": "Mason",
       "team": "GoodGuys",
       "description": "He's the watcher of the village trying to find the truth",
       "effect":
       {
-      "effectName":"truthSeeker.exe",
-      "action": "He knows the other mason in the game if existed to be able to find the truth easier"
+        "effectName": "truthSeeker.exe",
+        "action": "Knows other mason(s) if they exist."
       }
     },
-  
+
     {
       "roleName": "Seer",
       "team": "GoodGuys",
       "description": "He sees what others can see!",
       "effect":
       {
-      "effectName":"doublePeek",
-      "action": "he see a player card or two ground cards"
+        "effectName": "doublePeek",
+        "action": "Views one player's role or two ground cards."
       }
     },
-  
+
     {
       "roleName": "Robber",
       "team": "GoodGuys",
       "description": "He's a thief but SHAREEF!",
       "effect":
       {
-      "effectName":"ninjaHeist",
-      "action": "he swaps his robber card with someone else's card and become the new role he took"
+        "effectName": "ninjaHeist",
+        "action": "Swaps roles with another player and becomes that role."
       }
     },
-  
+
     {
       "roleName": "TroubleMaker",
       "team": "GoodGuys",
       "description": "He's making a scene all over the place!",
       "effect":
       {
-      "effectName":"switcharoo",
-      "action": "He swaps two player cards without seeing or knowing them and without those players knowing it too"
+        "effectName": "switcharoo",
+        "action": "Secretly swaps two other players' roles."
       }
     },
-  
+
     {
       "roleName": "Drunk",
       "team": "GoodGuys",
       "description": "He is a weirdo moving around here and there doing something but drinking and acting strange not even remembering who he's",
       "effect":
       {
-      "effectName":"oopsIClickedIt",
-      "action": "He swaps his drunk card with one of the cards on the ground he chooses but he doesn't know it tho"
+        "effectName": "oopsIClickedIt",
+        "action": "Randomly swaps role with a ground card."
       }
     },
-  
+
     {
       "roleName": "Clone",
       "team": "GoodGuys",
       "description": "He's YOU but probably better.",
       "effect":
       {
-      "effectName":"MirrorImage",
-      "action": "At night, he looks at one player and copies their role, becoming that role for the rest of the game."
+        "effectName": "MirrorImage",
+        "action": "Copies another player's role permanently."
       }
     },
-  
+
     {
       "roleName": "Joker",
       "team": "Neutral",
       "description": "He hates his job, hates everyone, just wants to die!",
       "effect":
       {
-      "effectName": "SelfDestruct",
-      "action": "If Joker gets voted out, he wins and no one else!"
+        "effectName": "SelfDestruct",
+        "action": "He hates his job, hates everyone, just wants to die! so he wins if voted out."
       }
     },
-  
+
     {
       "roleName": "Insomniac",
       "team": "GoodGuys",
       "description": "In a toxic relationship with his bed so that he finds out the painful truth.",
       "effect":
       {
-      "effectName": "CaffeinePoweredSpy",
-      "action": "He wakes up at the end of the night phase to know his new role if changed"
+        "effectName": "CaffeinePoweredSpy",
+        "action": "Checks if their role changed during the night."
       }
     },
-  
+
     {
       "roleName": "MysticWolf",
       "team": "Villians",
       "description": "She's beauty, she's grace, she'll stare right into your face...then destroy your village.",
       "effect":
       {
-      "effectName": "SniffingSecrets",
-      "action": "He's a Werewolf but basically a Seer too"
+        "effectName": "SniffingSecrets",
+        "action": "Werewolf who can also view roles like Seer."
       }
     },
     {
@@ -126,8 +126,8 @@ const rolesJson = `
       "description": "Spin the bottle, literally. The Witch can either save someone with a magical 'here's a chance' potion or send someone to the grave with her 'oops' potion.",
       "effect":
       {
-      "effectName": "PotionRoulette",
-      "action": "She chooses a card from the ground cards to see and give to someone she decides to give it to."
+        "effectName": "PotionRoulette",
+        "action": "Gives a ground card to another player."
       }
     },
     {
@@ -136,8 +136,8 @@ const rolesJson = `
       "description": "Lucid dreams that feel more real than reality itself. these dreams are filled with lies, designed to confuse and mislead their victims into doubting their own perceptions.",
       "effect":
       {
-      "effectName": "LucidLiar",
-      "action": "He's a Werewolf but wakes up alone to mislead and distract other villagers from truth, not even werewolves know about him."
+        "effectName": "LucidLiar",
+        "action": "Knows Minion but no one knows her."
       }
     },
     {
@@ -146,22 +146,19 @@ const rolesJson = `
       "description": "Like Batman, but with better sleep schedules and less brooding.",
       "effect":
       {
-      "effectName": "CapedGuard",
-      "action": "He chooses someone to guard him from any effect going on him."
+        "effectName": "CapedGuard",
+        "action": "Protects a player from all night actions."
       }
     }
-]`;
-  
-  const teamJson = `
-    {
-      "Villians": "Werewolves",
-      "GoodGuys": "Villagers",
-      "Neutral": "Joker"
-    }`;
-  
-  export const roles = JSON.parse(rolesJson);
-  
-  export const teams = JSON.parse(teamJson);
-  
-  
-  
+  ];
+
+export const teams =
+{
+  "Villians": "Werewolves",
+  "GoodGuys": "Villagers",
+  "Neutral": "Joker"
+};
+
+
+
+
