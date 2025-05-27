@@ -7,7 +7,7 @@ export const roles =
       "effect":
       {
         "effectName": "silentHowl",
-        "action": "Knows all other werewolves in the game and if alone, he sees one ground card"
+        "action": "Knows all other werewolves in the game and MASTERMIND"
       }
     },
 
@@ -95,7 +95,7 @@ export const roles =
       "effect":
       {
         "effectName": "SelfDestruct",
-        "action": "He hates his job, hates everyone, just wants to die! so he wins if voted out."
+        "action": "He hates his job, hates everyone, just wants to die!"
       }
     },
 
