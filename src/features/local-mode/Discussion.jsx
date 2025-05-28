@@ -1,276 +1,186 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from 'react';
 import { PHASES, useGame } from "../../context/GameContext";
-import PrimaryButton from '../../components/PrimaryButton';
+import WerewolfAnimation from "../../animations/WerewolfAnimation";
+import NightLogViewer from "./NightLogViewer";
+import ActionModal from "../../components/ActionModal";
+import { FiInfo } from "react-icons/fi";
+
+const SECRET_PASSWORD = "moonlight";
 
 function Discussion() {
     const { setCurrentPhase } = useGame();
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isActive, setIsActive] = useState(false);
+    const [selectedTime, setSelectedTime] = useState(0);
 
-    useEffect(() => {
-        if (timeLeft <= 0) {
-            setCurrentPhase(PHASES.VOTING);
-            return;
-        }
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [hasAccess, setHasAccess] = useState(false);
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-        const timer = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [timeLeft, setCurrentPhase]);
+    const timerRef = useRef(null);
 
     const nextPhase = () => {
+        clearInterval(timerRef.current);
         setCurrentPhase(PHASES.VOTING);
     };
 
-    const progressPercentage = (timeLeft / 30) * 100;
-    const circumference = 2 * Math.PI * 45; // radius of 45
-    const strokeDashoffset = circumference - (progressPercentage / 100) * circumference;
+    const startTimer = (minutes) => {
+        setSelectedTime(minutes);
+        setTimeLeft(minutes * 60);
+        setIsActive(true);
+    };
+
+    const resetTimer = () => {
+        clearInterval(timerRef.current);
+        setIsActive(false);
+        setTimeLeft(0);
+        setSelectedTime(0);
+    };
+
+    useEffect(() => {
+        if (isActive && timeLeft > 0) {
+            timerRef.current = setInterval(() => {
+                setTimeLeft((prevTime) => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0 && isActive) {
+            clearInterval(timerRef.current);
+            setIsActive(false);
+            nextPhase();
+        }
+
+        return () => clearInterval(timerRef.current);
+    }, [isActive, timeLeft]);
+
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const handlePasswordSubmit = () => {
+        if (password === SECRET_PASSWORD) {
+            setHasAccess(true);
+            setPassword("");
+            setError("");
+        } else {
+            setError("Wrong incantation, try again.");
+        }
+    };
+
+    const timeOptions = [6, 8, 10, 15];
 
     return (
-        <>
-            <div className="overlay"></div>
-            <div className="z-20 flex flex-col items-center gap-12 relative">
-                {/* Floating magical particles */}
-                {[...Array(12)].map((_, i) => (
-                    <motion.div
-                        key={`particle-${i}`}
-                        className="absolute w-2 h-2 rounded-full"
-                        style={{
-                            background: `hsl(${260 + Math.random() * 60}, 70%, 70%)`,
-                            left: `${20 + Math.random() * 60}%`,
-                            top: `${10 + Math.random() * 80}%`,
-                        }}
-                        animate={{
-                            y: [0, -20, 0],
-                            x: [0, Math.random() * 20 - 10, 0],
-                            opacity: [0, 1, 0],
-                            scale: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                            duration: 3 + Math.random() * 2,
-                            repeat: Infinity,
-                            delay: Math.random() * 2,
-                            ease: "easeInOut"
-                        }}
-                    />
-                ))}
-
-                <motion.h1 
-                    className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 font-serif tracking-widest drop-shadow-2xl"
-                    animate={{
-                        textShadow: [
-                            "0 0 10px rgba(168, 85, 247, 0.5)",
-                            "0 0 20px rgba(168, 85, 247, 0.8)",
-                            "0 0 10px rgba(168, 85, 247, 0.5)"
-                        ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    ✦ DISCUSSION ✦
-                </motion.h1>
-
-                {/* Main Cauldron Container */}
-                <div className="relative">
-                    {/* Stone Pedestal Base */}
-                    <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gradient-to-b from-gray-600 to-gray-800 rounded-full shadow-2xl" />
-                    <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-28 h-4 bg-gradient-to-b from-gray-700 to-gray-900 rounded-full" />
-
-                    {/* Magical Cauldron */}
-                    <div className="relative w-40 h-32">
-                        {/* Cauldron Body */}
-                        <div 
-                            className="w-full h-full bg-gradient-to-b from-gray-800 via-gray-900 to-black rounded-b-full border-4 border-gray-700 shadow-2xl relative overflow-hidden"
-                            style={{
-                                background: "radial-gradient(ellipse at center top, #374151 0%, #1f2937 30%, #111827 70%, #000000 100%)"
-                            }}
-                        >
-                            {/* Iron Bands */}
-                            <div className="absolute top-1/4 w-full h-1 bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600 shadow-inner" />
-                            <div className="absolute top-1/2 w-full h-1 bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600 shadow-inner" />
-                            <div className="absolute top-3/4 w-full h-1 bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600 shadow-inner" />
-
-                            {/* Magical Brew */}
-                            <motion.div
-                                className="absolute bottom-0 w-full rounded-b-full"
-                                animate={{ 
-                                    height: `${progressPercentage}%`,
-                                }}
-                                transition={{ 
-                                    type: "spring", 
-                                    stiffness: 100, 
-                                    damping: 20 
-                                }}
-                                style={{
-                                    background: timeLeft > 20 
-                                        ? "radial-gradient(ellipse at center, #8b5cf6 0%, #7c3aed 50%, #5b21b6 100%)"
-                                        : timeLeft > 10
-                                        ? "radial-gradient(ellipse at center, #f59e0b 0%, #d97706 50%, #92400e 100%)"
-                                        : "radial-gradient(ellipse at center, #ef4444 0%, #dc2626 50%, #991b1b 100%)",
-                                    boxShadow: timeLeft > 20 
-                                        ? "0 0 20px rgba(139, 92, 246, 0.6)"
-                                        : timeLeft > 10
-                                        ? "0 0 20px rgba(245, 158, 11, 0.6)"
-                                        : "0 0 20px rgba(239, 68, 68, 0.6)"
-                                }}
-                            >
-                                {/* Bubbling Surface */}
-                                <div className="absolute top-0 w-full h-4 overflow-hidden">
-                                    {[...Array(8)].map((_, i) => (
-                                        <motion.div
-                                            key={`bubble-${i}`}
-                                            className="absolute rounded-full bg-white/30"
-                                            style={{
-                                                width: `${Math.random() * 8 + 4}px`,
-                                                height: `${Math.random() * 8 + 4}px`,
-                                                left: `${10 + i * 10}%`,
-                                                top: '50%'
-                                            }}
-                                            animate={{
-                                                y: [0, -10, 0],
-                                                scale: [0.8, 1.2, 0.8],
-                                                opacity: [0.3, 0.8, 0.3]
-                                            }}
-                                            transition={{
-                                                duration: 1.5 + Math.random(),
-                                                repeat: Infinity,
-                                                delay: i * 0.2
-                                            }}
-                                        />
-                                    ))}
-                                </div>
-                            </motion.div>
-
-                            {/* Rim highlight */}
-                            <div className="absolute top-0 left-2 right-2 h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent rounded-full opacity-50" />
-                        </div>
-
-                        {/* Cauldron Handles */}
-                        <div className="absolute left-0 top-1/3 w-6 h-8 border-4 border-gray-600 rounded-full bg-transparent transform -translate-x-2" />
-                        <div className="absolute right-0 top-1/3 w-6 h-8 border-4 border-gray-600 rounded-full bg-transparent transform translate-x-2" />
-
-                        {/* Magical Steam/Smoke */}
-                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-20 h-16 overflow-hidden">
-                            {[...Array(3)].map((_, i) => (
-                                <motion.div
-                                    key={`smoke-${i}`}
-                                    className="absolute w-8 h-8 rounded-full opacity-30"
-                                    style={{
-                                        background: "radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%)",
-                                        left: `${i * 15}px`,
-                                        bottom: 0
-                                    }}
-                                    animate={{
-                                        y: [0, -40],
-                                        x: [0, Math.sin(i) * 10],
-                                        scale: [0.5, 1.5],
-                                        opacity: [0.6, 0]
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        delay: i * 0.5,
-                                        ease: "easeOut"
-                                    }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Circular Progress Ring */}
-                    <div className="absolute -inset-8 flex items-center justify-center">
-                        <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 100 100">
-                            {/* Background circle */}
-                            <circle
-                                cx="50"
-                                cy="50"
-                                r="45"
-                                stroke="rgba(75, 85, 99, 0.3)"
-                                strokeWidth="2"
-                                fill="none"
-                            />
-                            {/* Progress circle */}
-                            <motion.circle
-                                cx="50"
-                                cy="50"
-                                r="45"
-                                stroke={timeLeft > 20 ? "#8b5cf6" : timeLeft > 10 ? "#f59e0b" : "#ef4444"}
-                                strokeWidth="3"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeDasharray={circumference}
-                                animate={{
-                                    strokeDashoffset: strokeDashoffset,
-                                    filter: [
-                                        "drop-shadow(0 0 5px currentColor)",
-                                        "drop-shadow(0 0 15px currentColor)",
-                                        "drop-shadow(0 0 5px currentColor)"
-                                    ]
-                                }}
-                                transition={{
-                                    strokeDashoffset: { duration: 0.5 },
-                                    filter: { duration: 1.5, repeat: Infinity }
-                                }}
-                            />
-                            {/* Mystical runes around the circle */}
-                            {['✦', '◆', '✧', '◇', '✦', '◆', '✧', '◇'].map((rune, i) => (
-                                <text
-                                    key={`rune-${i}`}
-                                    x="50"
-                                    y="10"
-                                    textAnchor="middle"
-                                    className="fill-purple-400 text-xs font-bold"
-                                    transform={`rotate(${i * 45} 50 50)`}
-                                >
-                                    {rune}
-                                </text>
-                            ))}
-                        </svg>
-                    </div>
+        <div className="flex flex-col items-center justify-center min-h-screen w-full p-4 sm:p-6 overflow-hidden">
+            <div className="relative w-full max-w-[90%] md:max-w-md flex flex-col glass-container bg-white/10 backdrop-blur-md rounded-xl p-4 md:p-6 z-10 border border-amber-500/30 shadow-lg items-center gap-5">
+                {/* Animation */}
+                <div className="w-full h-32 sm:h-40 md:h-48 mt-4 mb-6 md:mb-9 flex items-center justify-center">
+                    <WerewolfAnimation />
                 </div>
 
-                {/* Time Display */}
-                <motion.div 
-                    className="text-center"
-                    animate={timeLeft <= 5 ? { scale: [1, 1.1, 1] } : {}}
-                    transition={{ duration: 0.6, repeat: timeLeft <= 5 ? Infinity : 0 }}
+                {/* Timer UI - Your Original Style Restored */}
+                <div
+                    className="text-5xl sm:text-6xl font-bold text-amber-800 px-6 py-3 text-center"
+                    style={{
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                        background: 'linear-gradient(to bottom, #f0c14b, #8b4513)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        border: '3px double #8b4513',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+                    }}
                 >
-                    <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-8 py-4 rounded-xl border-2 border-purple-500/50 shadow-xl backdrop-blur-sm">
-                        <div className="text-purple-300 text-sm font-serif mb-1 tracking-wide">ENCHANTMENT DURATION</div>
-                        <div className={`text-3xl font-bold font-mono ${
-                            timeLeft <= 5 ? 'text-red-400' : timeLeft <= 10 ? 'text-yellow-400' : 'text-purple-300'
-                        }`}>
-                            {String(Math.floor(timeLeft / 60)).padStart(2, '0')}:{String(timeLeft % 60).padStart(2, '0')}
+                    {formatTime(timeLeft)}
+                </div>
+                {/* Time Buttons */}
+                <div className="w-full grid grid-cols-2 gap-2 sm:gap-3">
+                    {timeOptions.map((minutes) => (
+                        <button
+                            key={minutes}
+                            onClick={() => startTimer(minutes)}
+                            disabled={isActive}
+                            className={`py-2 px-3 text-sm sm:text-base rounded-md font-semibold transition-all duration-150 ${isActive
+                                    ? 'bg-gray-300 text-gray-700 cursor-not-allowed'
+                                    : selectedTime === minutes
+                                        ? 'bg-amber-700 text-white'
+                                        : 'bg-amber-500 hover:bg-amber-600 text-white'
+                                } border border-amber-800 shadow-sm`}
+                        >
+                            {minutes} min
+                        </button>
+                    ))}
+                </div>
+
+                {/* Control Buttons */}
+                <div className="w-full flex gap-2">
+                    {isActive && (
+                        <button
+                            onClick={resetTimer}
+                            className="flex-1 py-1 text-sm sm:text-base bg-red-500 hover:bg-red-600 text-white rounded-md font-bold border border-red-700 shadow"
+                        >
+                            Reset
+                        </button>
+                    )}
+                    <button
+                        onClick={nextPhase}
+                        className="flex-1 py-1 text-sm sm:text-base bg-green-500 hover:bg-green-600 text-white rounded-md font-bold border border-green-700 shadow"
+                    >
+                        {isActive ? "Skip" : "Proceed"}
+                    </button>
+                </div>
+
+                {/* Info Icon Top-Right */}
+                <div className="absolute top-4 right-4 z-10">
+                    <button
+                        onClick={() => setShowPasswordModal(true)}
+                        className="text-amber-900 hover:text-amber-700 transition-colors"
+                        aria-label="Reveal Night Log"
+                    >
+                        <FiInfo className="w-6 h-6 sm:w-7 sm:h-7" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Action Modal for Password + NightLogViewer */}
+            <ActionModal
+                show={showPasswordModal}
+                onClose={() => {
+                    setShowPasswordModal(false);
+                    setPassword("");
+                    setError("");
+                }}
+            >
+                {hasAccess ? (
+                    <div className="w-full max-h-[70vh] overflow-y-auto">
+                        <NightLogViewer />
+                    </div>
+                ) : (
+                    <div className="w-full font-serif text-center text-gray-800">
+                        <h2 className="text-xl sm:text-2xl italic text-white font-bold mb-2">Keeper of Secrets</h2>
+                        <p className="text-sm sm:text-base text-gray-300 mb-4 italic">
+                            Speak the ancient word to unseal the log...
+                        </p>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter secret"
+                            className="w-full px-4 py-2 rounded border border-amber-700 bg-transparent text-center mb-2"
+                        />
+                        {error && <p className="text-red-600 text-xs sm:text-sm mb-2">{error}</p>}
+                        <div className="flex justify-center gap-4 mt-2">
+                            <button
+                                onClick={handlePasswordSubmit}
+                                className="px-4 py-1 rounded-md bg-green-700 text-white hover:bg-green-800 border border-green-900 text-sm sm:text-base"
+                            >
+                                Enter
+                            </button>
                         </div>
                     </div>
-                </motion.div>
-
-                {/* Mystical Warning */}
-                {timeLeft <= 5 && (
-                    <motion.div
-                        className="text-red-400 text-center font-serif italic text-lg"
-                        animate={{ 
-                            opacity: [0.5, 1, 0.5],
-                            textShadow: [
-                                "0 0 5px rgba(239, 68, 68, 0.5)",
-                                "0 0 15px rgba(239, 68, 68, 0.8)",
-                                "0 0 5px rgba(239, 68, 68, 0.5)"
-                            ]
-                        }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                    >
-                        ⚠ The spell grows weak... ⚠
-                    </motion.div>
                 )}
-
-                <PrimaryButton
-                    onClick={nextPhase}
-                    name="Proceed to Voting"
-                    color="green"
-                />
-            </div>
-        </>
+            </ActionModal>
+        </div>
     );
 }
 

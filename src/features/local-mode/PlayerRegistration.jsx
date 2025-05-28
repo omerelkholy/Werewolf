@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TextInput from "../../components/TextInput";
-import PrimaryButton from "../../components/PrimaryButton";
 import { PHASES, useGame } from "../../context/GameContext";
 import { toast } from "react-toastify";
 import { UserPlus, Users, Play, Trash2, Crown } from "lucide-react";

@@ -21,12 +21,12 @@ const TableLayout = ({
   const [selected, setSelected] = useState(allowMultipleSelection ? [] : null);
 
   // Responsive sizing based on whether it's in modal or not
-  const containerSize = isModal ? 365 : 600;
-  const radius = isModal ? 165 : 200;
+  const containerSize = isModal ? 365 : 380;
+  const radius = isModal ? 165 : 165;
   const centerX = containerSize / 2;
   const centerY = containerSize / 2;
-  const playerCardWidth = isModal ? 70 : 100;
-  const playerCardHeight = isModal ? 90 : 140;
+  const playerCardWidth = isModal ? 70 : 70;
+  const playerCardHeight = isModal ? 90 : 110;
   const groundCardSize = isModal ? 70 : 80;
 
   const handleSelection = (id, type = 'player') => {
@@ -125,11 +125,10 @@ const TableLayout = ({
           />
         ) : (
           // Fallback circular table for non-modal
-          <div
-            className="absolute inset-0 rounded-full border-4 border-dashed border-gray-300 opacity-30"
-            style={{
-              background: 'radial-gradient(circle, rgba(139, 69, 19, 0.1) 0%, rgba(139, 69, 19, 0.05) 100%)'
-            }}
+          <img
+            src={Table}
+            alt="table"
+            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
           />
         )}
 

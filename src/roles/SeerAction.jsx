@@ -38,7 +38,7 @@ function SeerAction({ player, onSubmit, randomColor }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="flex justify-center gap-4 mb-6"
+            className="flex justify-center gap-4 mb-6 py-40"
           >
             <button
               onClick={() => setMode("player")}

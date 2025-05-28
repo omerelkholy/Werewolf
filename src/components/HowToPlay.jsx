@@ -10,6 +10,7 @@ export function HowToPlay({ onClose }) {
   const instructions = {
     en: `Welcome to Howling Hollow village...
     
+    - Night log password: moonlight (use it wisely)
     - The minimum number of players is 6 .
     - Roles get assigned for each player secretly and randomly, don't show and let anyone know your role.
     - Perform your action, know your role and what you should do through the game and the result of your actions.
@@ -21,6 +22,7 @@ export function HowToPlay({ onClose }) {
 
     ar: `...أهلاً بيك في قرية المستذئب الشقي
 
+    باسورد اللوجز: moonlight.
     .أقل عدد للعب 6 أفراد
     .الأدوار بتتوزع عليكو بشكل عشوائي وبسرية. اعرف دورك وماتعرفش حد
     .بتقدر تشوف أنت بقيت ايه في الراوند وتقدر تعمل ايه في الراوند

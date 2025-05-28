@@ -69,14 +69,14 @@ export const GameProvider = ({ children }) => {
         const log = [];
 
         const swapPlayers = (a, b) => {
-            log.push(`🔁 TroubleMaker swapped ${a} ⇄ ${b}`);
+            log.push(`${a} ⇄ ${b} got swapped`);
             const temp = updatedRoles[a];
             updatedRoles[a] = updatedRoles[b];
             updatedRoles[b] = temp;
         };
 
         const swapWithGround = (player, groundIndex) => {
-            log.push(`🎲 ${player} swapped with Ground Card ${Number(groundIndex) + 1}`);
+            log.push(`${player} swapped with Ground Card ${Number(groundIndex) + 1}`);
             const temp = updatedRoles[player];
             updatedRoles[player] = ground[groundIndex];
             ground[groundIndex] = temp;
@@ -92,7 +92,7 @@ export const GameProvider = ({ children }) => {
                 const clonedRole = originalRoles[clonedPlayer];
 
                 if (clonedRole) {
-                    log.push(`🪞 Clone: ${player} became ${clonedRole.roleName} by cloning ${clonedPlayer}`);
+                    log.push(`Clone: ${player} became ${clonedRole.roleName} by cloning ${clonedPlayer}`);
                     updatedRoles = transformClonePlayer(player, clonedPlayer, updatedRoles);
                 }
             }
@@ -112,7 +112,7 @@ export const GameProvider = ({ children }) => {
                 case "Sentinel":
                     if (data?.target) {
                         protectedPlayers.add(data.target);
-                        log.push(`🛡 Sentinel protected ${data.target}`);
+                        log.push(`Sentinel protected ${data.target}`);
                     }
                     break;
 
@@ -120,9 +120,9 @@ export const GameProvider = ({ children }) => {
                 case "Seer":
                     if (data?.type === "player" && protectedPlayers.has(data.target)) {
                         blocked.push({ player, roleName, reason: `Target ${data.target} was protected` });
-                        log.push(`🚫 ${player}'s ${roleName} was blocked (target: ${data.target})`);
+                        log.push(`${player}'s ${roleName} was blocked (target: ${data.target})`);
                     } else {
-                        log.push(`👁 ${player} used ${roleName} to peek ${data?.target || "2 ground cards"}`);
+                        log.push(`${player} used ${roleName} to peek ${data?.target || "2 ground cards"}`);
                     }
                     break;
 
@@ -130,11 +130,11 @@ export const GameProvider = ({ children }) => {
                     if (data?.target) {
                         if (protectedPlayers.has(data.target)) {
                             blocked.push({ player, roleName, reason: `Target ${data.target} was protected` });
-                            log.push(`🚫 ${player}'s Robber action was blocked (target: ${data.target})`);
+                            log.push(`${player}'s Robber action was blocked (target: ${data.target})`);
                             break;
                         }
                         swapPlayers(player, data.target);
-                        log.push(`🎩 Robber: ${player} stole ${data.target}'s role`);
+                        log.push(`Robber: ${player} stole ${data.target}'s role`);
                     }
                     break;
 
@@ -143,7 +143,7 @@ export const GameProvider = ({ children }) => {
                         const [a, b] = data.targets;
                         if (protectedPlayers.has(a) || protectedPlayers.has(b)) {
                             blocked.push({ player, roleName, reason: `One of the targets was protected` });
-                            log.push(`🚫 ${player}'s TroubleMaker action was blocked (protected target)`);
+                            log.push(`${player}'s TroubleMaker action was blocked (protected target)`);
                             break;
                         }
                         swapPlayers(a, b);
@@ -154,18 +154,18 @@ export const GameProvider = ({ children }) => {
                     if (data?.player !== undefined && data?.groundCard !== undefined) {
                         if (protectedPlayers.has(data.player)) {
                             blocked.push({ player, roleName, reason: `Target ${data.player} was protected` });
-                            log.push(`🚫 ${player}'s Witch action blocked (target: ${data.player})`);
+                            log.push(`${player}'s Witch action blocked (target: ${data.player})`);
                             break;
                         }
                         swapWithGround(data.player, data.groundCard);
-                        log.push(`🧙‍♀️ Witch: ${player} swapped ground card ${Number(data.groundCard) + 1} with ${data.player}`);
+                        log.push(`Witch: ${player} swapped ground card ${Number(data.groundCard) + 1} with ${data.player}`);
                     }
                     break;
 
                 case "Drunk":
                     if (data?.target !== undefined) {
                         swapWithGround(player, data.target);
-                        log.push(`🍻 Drunk: ${player} swapped with ground card ${Number(data.target) + 1}`);
+                        log.push(`Drunk: ${player} swapped with ground card ${Number(data.target) + 1}`);
                     }
                     break;
 
