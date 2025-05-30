@@ -80,7 +80,8 @@ function MinionAction({ onSubmit, name }) {
         <PrimaryButton
           onClick={() => onSubmit({ seenWerewolves: werewolves })}
           name={name}
-          color="red"
+          width="50px"
+          height="40px"
         />
       </motion.div>
     </div>

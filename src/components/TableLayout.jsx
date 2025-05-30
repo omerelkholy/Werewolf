@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useGame } from "../context/GameContext";
 import BackCard from "../../public/images/backCard.png"
 import Table from "../../public/images/table.png"
+import PrimaryButton from "./PrimaryButton";
 
 const TableLayout = ({
   players,
@@ -259,16 +260,17 @@ const TableLayout = ({
 
         {/* Confirm button */}
         {hasValidSelection() && (
-          <motion.button
-            className={`absolute ${confirmButtonPosition} bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition-colors px-6 py-3 text-sm z-50`}
+          <PrimaryButton
+            name={isModal ? "Confirm Selection" : "Confirm Action"}
+            className={`absolute ${confirmButtonPosition} z-50`}
             onClick={handleConfirm}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
-            {isModal ? "Confirm Selection" : "Confirm Action"}
-          </motion.button>
+            width={isModal ? "auto" : "auto"} // Let content determine width
+            height={isModal ? "55px" : "50px"} // Let content determine height
+          />
         )}
 
       </div>
@@ -278,11 +280,11 @@ const TableLayout = ({
         <div className="text-center mt-4 text-xs text-gray-500 max-w-sm">
           {hasValidSelection() ? (
             <div>
-              <p className="font-semibold text-green-600 mb-1">Selected:</p>
+              <p className="font-semibold text-amber-200 mb-1">Selected:</p>
               {allowMultipleSelection ? (
                 <div className="space-y-1">
                   {selected.map((item, idx) => (
-                    <div key={item.key} className="text-green-600">
+                    <div key={item.key} className="text-amber-200">
                       {item.type === 'player'
                         ? (players.find(p => (p.id || p) === item.id)?.name || item.id)
                         : `Ground Card ${item.id + 1}`
@@ -296,7 +298,7 @@ const TableLayout = ({
                   )}
                 </div>
               ) : (
-                <p className="text-green-600">
+                <p className="text-amber-200">
                   {selected.type === 'player'
                     ? (players.find(p => (p.id || p) === selected.id)?.name || selected.id)
                     : `Ground Card ${selected.id + 1}`

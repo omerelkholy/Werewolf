@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGame } from "../context/GameContext";
 import TableLayout from "../components/TableLayout";
 import { motion, AnimatePresence } from "framer-motion";
+import PrimaryButton from "../components/PrimaryButton";
 
 function SeerAction({ player, onSubmit, randomColor }) {
   const { players } = useGame();
@@ -38,20 +39,24 @@ function SeerAction({ player, onSubmit, randomColor }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="flex justify-center gap-4 mb-6 py-40"
+            className="flex justify-center items-center flex-col sm:flex-row gap-4 mb-6 py-40"
           >
-            <button
+            
+            <PrimaryButton
               onClick={() => setMode("player")}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 transition-all duration-300 py-2 rounded"
-            >
-              Peek a Player
-            </button>
-            <button
+              name="Peek a Player"
+              className="w-full sm:w-auto flex-1 py-3 sm:py-0 text-sm sm:text-base" // Make button fill container height
+              width="190px"
+              height="68px"
+            />
+              
+            <PrimaryButton
               onClick={() => setMode("ground")}
-              className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 transition-all duration-300 py-2 rounded"
-            >
-              Peek 2 Ground Cards
-            </button>
+              name="Peek 2 Ground Cards"
+              width="190px"
+              height="68px"
+              className="w-full sm:w-auto flex-1 py-3 sm:py-0 text-sm sm:text-base" // Make button fill container height
+            />
           </motion.div>
         )}
 

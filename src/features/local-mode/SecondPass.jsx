@@ -653,7 +653,7 @@ function SecondPass() {
               // Blocked action image
               if (entry.type === "blocked") {
                 return (
-                  <div key={idx} className="flex justify-center py-2">
+                  <div key={idx} className="flex justify-center">
                     <img
                       src={Sentinel_Block}
                       alt="Action Blocked by Sentinel"
@@ -668,11 +668,12 @@ function SecondPass() {
           </div>
 
           {/* Button */}
-          <div className="pt-6 pb-2">
+          <div className="pb-2">
             <PrimaryButton
               onClick={handleActionConfirm}
               name={currentPlayerIndex === players.length - 1 ? "Start Discussion" : "Next Player"}
-              color="green"
+              width="130px"
+              height={currentPlayerIndex === players.length - 1 ? "50px" : "46px"}
             />
           </div>
         </div>

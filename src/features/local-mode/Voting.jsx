@@ -105,7 +105,8 @@ function Voting() {
                         <PrimaryButton
                             name="Continue"
                             onClick={handleContinue}
-                            color="green"
+                            className="min-w-[120px] min-h-[40px] mx-auto" // Fixed minimum dimensions
+                            width="125px"
                         />
                     </motion.div>
                 </AnimatePresence>

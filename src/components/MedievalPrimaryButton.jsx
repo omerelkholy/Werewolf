@@ -1,37 +1,60 @@
 import { motion } from 'framer-motion';
+import ButtonShape from "../../public/images/darkerbutton.png";
 
-function MedievalPrimaryButton({ onClick, color = "blue", name, icon, className = "", disabled = false }) {
-  // Medieval color palette
-  const colorMap = {
-    red: "bg-red-800 hover:bg-red-900 border-red-700",
-    blue: "bg-indigo-800 hover:bg-indigo-900 border-indigo-700",
-    green: "bg-emerald-800 hover:bg-emerald-900 border-emerald-700",
-    brown: "bg-amber-800 hover:bg-amber-900 border-amber-700",
-    gold: "bg-yellow-600 hover:bg-yellow-700 border-yellow-500",
-  };
-
-  const buttonColors = colorMap[color] || colorMap.blue;
+function MedievalPrimaryButton({ 
+  onClick, 
+  name, 
+  icon, 
+  className = "", 
+  disabled = false,
+  width = "200px", 
+  height = "60px",
+  // Framer Motion props
+  initial,
+  animate,
+  whileHover,
+  whileTap,
+  children
+}) {
   
   return (
     <motion.button
       onClick={onClick}
       disabled={disabled}
-      className={`relative px-5 py-3 rounded-md text-white font-medium transition-all 
-      border-2 border-b-4 font-[Cinzel] uppercase tracking-wider
-      shadow-lg flex items-center justify-center gap-2 focus:outline-none
+      className={`relative px-6 py-4 text-white font-medium transition-all duration-200
+      font-[Cinzel] uppercase tracking-wider text-xl
+      shadow-lg flex items-center justify-center gap-3 focus:outline-none
       ${disabled 
-        ? "bg-gray-500 border-gray-600 cursor-not-allowed opacity-70" 
-        : buttonColors
+        ? "opacity-50 cursor-not-allowed" 
+        : "hover:opacity-90"
       } ${className}`}
-      whileTap={{ y: 4, borderBottomWidth: '2px' }}
-      initial={{ scale: 1 }}
-      whileHover={{ scale: 1.05 }}
+      style={{
+        backgroundImage: `url(${ButtonShape})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        border: 'none',
+        minWidth: width,
+        minHeight: height
+      }}
+      initial={initial || { scale: 1 }}
+      animate={animate}
+      whileHover={whileHover || { scale: 1.05 }}
+      whileTap={whileTap || { scale: 0.98 }}
     >
-      {/* Medieval ornamental edge */}
-      <div className="absolute inset-0 rounded-md border border-white/20 pointer-events-none" />
+      {/* Medieval color overlay */}
+      <div className={`absolute inset-0 rounded-md transition-all duration-200 ${
+        disabled ? "bg-gray-500/60" : ""
+      }`} />
       
-      {icon && <span className="text-xl">{icon}</span>}
-      <span>{name}</span>
+      {/* Medieval ornamental edge */}
+      <div className="absolute inset-0 rounded-md pointer-events-none" />
+      
+      {/* Content */}
+      <div className="relative z-10 flex items-center justify-center gap-3">
+        {icon && <span className="text-xl">{icon}</span>}
+        <span>{children || name}</span>
+      </div>
     </motion.button>
   );
 }

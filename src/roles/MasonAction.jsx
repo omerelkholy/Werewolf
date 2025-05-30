@@ -78,7 +78,8 @@ function MasonAction({ player, onSubmit, name }) {
         <PrimaryButton
           onClick={() => onSubmit({ teammate: otherMasons })}
           name={name}
-          color="green"
+          width="50px"
+          height="40px"
         />
       </motion.div>
     </div>

@@ -34,7 +34,8 @@ function JokerAction({ onSubmit, name }) {
         <PrimaryButton
           onClick={() => onSubmit({ joker: "joker" })}
           name={name}
-          color="purple"
+          width="50px"
+          height="40px"
         />
       </motion.div>
     </div>

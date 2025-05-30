@@ -194,7 +194,6 @@ function RoleActionWrapper({ player, role, onComplete, name, randomColor }) {
                     <PrimaryButton
                         onClick={() => handleActionSubmit(null)}
                         name={name}
-                        color="green"
                     />
                 </>
             );

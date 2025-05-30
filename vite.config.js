@@ -8,9 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  // server: {
-  //   host: '192.168.1.15', // allow external connections
-  //   port: 5173,       // or whatever port you're using
-  // },
+  server: {
+    host: '192.168.1.15', // allow external connections
+    port: 5173,       // or whatever port you're using
+  },
 
 })

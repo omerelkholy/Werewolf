@@ -79,7 +79,8 @@ function DreamWolfAction({ onSubmit, name }) {
         <PrimaryButton
           onClick={() => onSubmit({ dreamWolf: "dreamWolf" })}
           name={name}
-          color="gray"
+          width="50px"
+          height="40px"
         />
       </motion.div>
     </div>

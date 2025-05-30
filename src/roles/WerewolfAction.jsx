@@ -77,7 +77,8 @@ function WerewolfAction({ player, onSubmit, name, randomColor }) {
           <PrimaryButton
             onClick={() => onSubmit({ teammates: otherWerewolves })}
             name={name}
-            color="green"
+            width="50px"
+            height="40px"
           />
         </motion.div>
       </div>

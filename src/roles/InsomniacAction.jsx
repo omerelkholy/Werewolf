@@ -34,7 +34,8 @@ function InsomniacAction({ onSubmit, name }) {
         <PrimaryButton
           onClick={() => onSubmit({ insomniac: "insomniac" })}
           name={name}
-          color="blue"
+          width="50px"
+          height="40px"
         />
       </motion.div>
     </div>

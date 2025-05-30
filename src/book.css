@@ -1,0 +1,233 @@
+/* Medieval Story Book Styles */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturMaguntia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Birthstone&family=Italianno&family=Micro+5&family=Qwigley&family=Silkscreen:wght@400;700&family=Tiny5&display=swap');
+
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #ceb27b;
+  position: relative;
+}
+
+.language-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #3a2713 0%, #1a1107 100%);
+  color: #d4af37;
+  border: 1px solid #8b5a2b;
+  border-radius: 4px;
+  font-family: 'MedievalSharp', cursive;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.language-toggle:hover {
+  background: linear-gradient(135deg, #4a3723 0%, #2a2117 100%);
+}
+
+.responsive-flipbook {
+  margin: 40px auto 20px;
+}
+
+.page {
+  background: url('https://www.transparenttextures.com/patterns/old-paper.png'),
+    linear-gradient(145deg, #f5e7c1 0%, #e4d5a8 100%);
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #8b5a2b;
+}
+
+.page-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+  font-family: 'MedievalSharp', cursive;
+  box-sizing: border-box;
+}
+
+/* Arabic language styles */
+.rtl .page-content {
+  direction: rtl;
+  font-family: 'Lateef', serif;
+  text-align: right;
+}
+
+.rtl .story-page-content {
+  text-align: right;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  /* Increased base size */
+  line-height: 1.8;
+  /* More spacing for Arabic script */
+  font-family: 'Lateef', serif;
+  font-weight: 500;
+  /* Slightly bolder for better readability */
+  letter-spacing: 0.5px;
+  /* Slight spacing helps Arabic */
+  text-align: justify;
+}
+
+/* Make Arabic titles larger */
+.rtl .story-page-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-family: 'Lateef', serif;
+  font-weight: 700;
+}
+
+/* Optional: Adjust the cover title for Arabic */
+.rtl .cover .story-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.3;
+}
+
+.rtl .story-info {
+  direction: rtl;
+}
+
+.cover {
+  background: url('https://www.transparenttextures.com/patterns/old-paper.png'),
+    linear-gradient(135deg, #3a2713 0%, #1a1107 100%) !important;
+  color: #d4af37;
+  font-weight: bold;
+  font-family: 'UnifrakturMaguntia', cursive;
+}
+
+.rtl .cover {
+  font-family: 'Lateef', serif;
+}
+
+.story-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  font-family: "Italianno", cursive;
+}
+
+.story-subtitle {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #b8860b;
+  font-style: italic;
+}
+
+.story-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.story-container.top {
+  justify-content: flex-start;
+}
+
+.story-container.bottom {
+  justify-content: flex-end;
+}
+
+.story-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.story-image-placeholder {
+  width: 90%;
+  height: 150px;
+  background-color: rgba(139, 90, 43, 0.1);
+  border: 2px dashed #8b5a2b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5c3a21;
+  font-style: italic;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.story-info {
+  width: 100%;
+  color: #3a2713;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.story-page-title {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  color: #5c3a21;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #8b5a2b;
+  padding-bottom: 5px;
+}
+
+.story-page-content {
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+  color: #3a2713;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .story-container {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .story-image-placeholder {
+    height: 120px;
+    font-size: 0.8rem;
+  }
+
+  .language-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-content {
+    padding: 10px;
+  }
+
+  .story-image-placeholder {
+    height: 100px;
+    font-size: 0.7rem;
+  }
+
+  .story-page-content {
+    line-height: 1.5;
+  }
+
+  .language-toggle {
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}

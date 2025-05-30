@@ -69,14 +69,12 @@ export const GameProvider = ({ children }) => {
         const log = [];
 
         const swapPlayers = (a, b) => {
-            log.push(`${a} ⇄ ${b} got swapped`);
             const temp = updatedRoles[a];
             updatedRoles[a] = updatedRoles[b];
             updatedRoles[b] = temp;
         };
 
         const swapWithGround = (player, groundIndex) => {
-            log.push(`${player} swapped with Ground Card ${Number(groundIndex) + 1}`);
             const temp = updatedRoles[player];
             updatedRoles[player] = ground[groundIndex];
             ground[groundIndex] = temp;
@@ -92,7 +90,7 @@ export const GameProvider = ({ children }) => {
                 const clonedRole = originalRoles[clonedPlayer];
 
                 if (clonedRole) {
-                    log.push(`Clone: ${player} became ${clonedRole.roleName} by cloning ${clonedPlayer}`);
+                    log.push(`Clone: ${player} mimicked ${clonedPlayer}, adopting the guise of the ${clonedRole.roleName}.`);
                     updatedRoles = transformClonePlayer(player, clonedPlayer, updatedRoles);
                 }
             }
@@ -112,7 +110,7 @@ export const GameProvider = ({ children }) => {
                 case "Sentinel":
                     if (data?.target) {
                         protectedPlayers.add(data.target);
-                        log.push(`Sentinel protected ${data.target}`);
+                        log.push(`Sentinel: ${player} shielded ${data.target} from the shadows.`);
                     }
                     break;
 
@@ -121,8 +119,9 @@ export const GameProvider = ({ children }) => {
                     if (data?.type === "player" && protectedPlayers.has(data.target)) {
                         blocked.push({ player, roleName, reason: `Target ${data.target} was protected` });
                         log.push(`${player}'s ${roleName} was blocked (target: ${data.target})`);
+                        break;
                     } else {
-                        log.push(`${player} used ${roleName} to peek ${data?.target || "2 ground cards"}`);
+                        log.push(`${player} used ${roleName} to divine the role of ${data?.target || "2 ground cards"}`);
                     }
                     break;
 
@@ -134,7 +133,7 @@ export const GameProvider = ({ children }) => {
                             break;
                         }
                         swapPlayers(player, data.target);
-                        log.push(`Robber: ${player} stole ${data.target}'s role`);
+                        log.push(`Robber: ${player} slyly stole the role of ${data.target}, becoming the ${updatedRoles[player].roleName}.`);
                     }
                     break;
 
@@ -146,6 +145,7 @@ export const GameProvider = ({ children }) => {
                             log.push(`${player}'s TroubleMaker action was blocked (protected target)`);
                             break;
                         }
+                        log.push(`TroubleMaker: ${player} caused mischief, swapping ${data.targets[0]} and ${data.targets[1]}.`);
                         swapPlayers(a, b);
                     }
                     break;
@@ -158,14 +158,14 @@ export const GameProvider = ({ children }) => {
                             break;
                         }
                         swapWithGround(data.player, data.groundCard);
-                        log.push(`Witch: ${player} swapped ground card ${Number(data.groundCard) + 1} with ${data.player}`);
+                        log.push(`Witch: ${player} brewed a strange spell, replacing ${data.player}’s role with Ground Card ${Number(data.groundCard) + 1}.`);
                     }
                     break;
 
                 case "Drunk":
                     if (data?.target !== undefined) {
                         swapWithGround(player, data.target);
-                        log.push(`Drunk: ${player} swapped with ground card ${Number(data.target) + 1}`);
+                        log.push(`Drunk: ${player} staggered into a role swap with Ground Card ${Number(data.target) + 1}.`);
                     }
                     break;
 

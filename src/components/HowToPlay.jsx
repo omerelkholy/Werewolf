@@ -99,7 +99,7 @@ export function HowToPlay({ onClose }) {
             </div>
 
             <div
-              className="bg-[#f8e9c1] border-4 border-amber-900/40 text-amber-950 rounded-xl shadow-2xl w-full p-8 pt-10 relative font-[Cardo] overflow-y-auto max-h-[80vh]"
+              className="bg-[#f8e9c1] border-4 border-amber-900/40 text-amber-950 rounded-xl shadow-2xl w-full p-8 pt-10 relative font-[Cardo] overflow-y-auto max-h-[80vh] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
                 backgroundImage: 'url("https://www.transparenttextures.com/patterns/parchment.png")',
                 boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4)'
