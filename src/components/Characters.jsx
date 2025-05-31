@@ -52,7 +52,7 @@ function Characters() {
       id: 4,
       name: "Seer",
       team: "Villagers",
-      description: "He sees what others can see!",
+      description: "He sees what others can't see!",
       effectName: "double Peek",
       image: seerImage,
       action: "Views one player's role or two ground cards."
@@ -79,7 +79,7 @@ function Characters() {
       id: 7,
       name: "Drunk",
       team: "Villagers",
-      description: "He is a weirdo moving around here and there doing nothing but drinking even remembering who he's.",
+      description: "He is a weirdo moving around here and there doing nothing but drinking not even remembering who he's.",
       effectName: "oops I Clicked It",
       image: drunkImage,
       action: "Randomly swaps role with a ground card."
