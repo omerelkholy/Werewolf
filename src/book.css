@@ -11,7 +11,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #ceb27b;
+  background-color: #3c291b;
   position: relative;
 }
 
@@ -20,9 +20,9 @@
   top: 20px;
   right: 20px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #3a2713 0%, #1a1107 100%);
+  background: #0b1211;
   color: #d4af37;
-  border: 1px solid #8b5a2b;
+  border: 1px solid #0b1211;
   border-radius: 4px;
   font-family: 'MedievalSharp', cursive;
   cursor: pointer;
@@ -31,7 +31,7 @@
 }
 
 .language-toggle:hover {
-  background: linear-gradient(135deg, #4a3723 0%, #2a2117 100%);
+  background: #252115;
 }
 
 .responsive-flipbook {
@@ -39,11 +39,13 @@
 }
 
 .page {
-  background: url('https://www.transparenttextures.com/patterns/old-paper.png'),
-    linear-gradient(145deg, #f5e7c1 0%, #e4d5a8 100%);
+  background: url('../public/images/parchment2.jpg'), rgba(255, 255, 255, 0.9);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   border-radius: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  border: 1px solid #8b5a2b;
+  border: 1px solid #0b1211;
 }
 
 .page-content {
@@ -64,10 +66,10 @@
   direction: rtl;
   font-family: 'Lateef', serif;
   text-align: right;
+  font-weight: bold;
 }
 
 .rtl .story-page-content {
-  text-align: right;
   font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   /* Increased base size */
   line-height: 1.8;
@@ -78,13 +80,14 @@
   letter-spacing: 0.5px;
   /* Slight spacing helps Arabic */
   text-align: justify;
+  font-weight: bold; /* ✅ Ensure story content is bold */
 }
 
 /* Make Arabic titles larger */
 .rtl .story-page-title {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
   font-family: 'Lateef', serif;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 /* Optional: Adjust the cover title for Arabic */
@@ -98,15 +101,16 @@
 }
 
 .cover {
-  background: url('https://www.transparenttextures.com/patterns/old-paper.png'),
-    linear-gradient(135deg, #3a2713 0%, #1a1107 100%) !important;
+  background-color: #0b1211;
   color: #d4af37;
   font-weight: bold;
   font-family: 'UnifrakturMaguntia', cursive;
 }
 
 .rtl .cover {
+  background-color: #030d09;
   font-family: 'Lateef', serif;
+  font-weight: bold;
 }
 
 .story-title {
@@ -173,7 +177,7 @@
 
 .story-page-title {
   font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 600;
+  font-weight: bold;
   color: #5c3a21;
   margin-bottom: 10px;
   border-bottom: 2px solid #8b5a2b;

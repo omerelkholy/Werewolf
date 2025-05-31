@@ -169,7 +169,7 @@ function MainEntryScreen({ onStart }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#ceb27b] bg-opacity-80 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-[#3c291b] bg-opacity-80 flex items-center justify-center p-4"
             onClick={handleCloseStoryBook}
           >
             <motion.div

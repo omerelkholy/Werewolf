@@ -8,6 +8,9 @@ import scene4 from "../../public/images/scene4.png";
 import scene5 from "../../public/images/scene5.png";
 import scene6 from "../../public/images/scene6.png";
 import scene7 from "../../public/images/scene7.png";
+import enCoverPage from "../../public/images/coverpage.png";
+import arCoverPage from "../../public/images/arcoverpage.png";
+import parchment from "../../public/images/parchment2.jpg";
 
 function Book() {
     const [language, setLanguage] = useState('en'); // 'en' or 'ar'
@@ -298,14 +301,38 @@ function Book() {
                 size="stretch"
                 mobileScrollSupport={true}
             >
-                <div className="page" style={{ background: 'transparent' }}>
+                {/* Front Cover Page */}
+                <div className="page">
                     <div className="page-content cover">
-                        <h1 className="story-title">
-                            {language === 'en' ? 'The Tale of Howling Hollow' : 'أسطورة هولينج هولو'}
-                        </h1>
+                        {language === 'en' ? (
+                            <img
+                                src={enCoverPage}
+                                className="cover-image"
+                                alt="The Tale of Howling Hollow Cover"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'fit',
+                                    borderRadius: '0'
+                                }}
+                            />
+                        ) : (
+                            <img
+                                src={arCoverPage}
+                                className="cover-image"
+                                alt="The Tale of Howling Hollow Cover"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'fit',
+                                    borderRadius: '0'
+                                }}
+                            />
+                        )}
                     </div>
                 </div>
 
+                {/* Story Pages */}
                 {storyPages[language].map((page) => (
                     <div className="page" key={page.id}>
                         <div className="page-content">
@@ -316,7 +343,7 @@ function Book() {
 
                                 <div className="story-info">
                                     {page.title && <h2 className="story-page-title text-center">{page.title}</h2>}
-                                    <p className={`story-page-content`}>{page.content}</p>
+                                    <p className={`story-page-content font-bold`}>{page.content}</p>
                                 </div>
 
                                 {page.imagePosition === "bottom" && (
@@ -326,6 +353,77 @@ function Book() {
                         </div>
                     </div>
                 ))}
+
+                {/* Back Cover Page */}
+                <div className="page">
+                    <div className="page-content cover">
+                        {language === 'en' ? (
+                            // You can use the same cover image or create a different back cover
+                            <div style={{
+                                width: '100%',
+                                height: '100%',
+                                background: '#0b1211',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                color: '#d4af37',
+                                textAlign: 'center',
+                                padding: '20px',
+                                boxSizing: 'border-box'
+                            }}>
+                                <h2 style={{
+                                    fontSize: 'clamp(1.2rem, 3vw, 2rem)',
+                                    marginBottom: '2rem',
+                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+                                }}>
+                                    The End
+                                </h2>
+                                <p style={{
+                                    fontSize: 'clamp(0.8rem, 1.5vw, 1.1rem)',
+                                    lineHeight: '1.6',
+                                    fontFamily: 'MedievalSharp, cursive',
+                                    opacity: 0.9
+                                }}>
+                                    Thus concludes the tale of Howling Hollow, where dreams and reality intertwine in the shadows of the night.
+                                </p>
+                            </div>
+                        ) : (
+                            <div style={{
+                                width: '100%',
+                                height: '100%',
+                                background: "#030d09",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                color: '#d4af37',
+                                textAlign: 'center',
+                                padding: '20px',
+                                boxSizing: 'border-box',
+                                direction: 'rtl'
+                            }}>
+                                <h2 style={{
+                                    fontFamily: 'Lateef, serif',
+                                    fontSize: 'clamp(1.2rem, 3vw, 2rem)',
+                                    marginBottom: '2rem',
+                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                                    fontWeight: 'bold'
+                                }}>
+                                    النهاية
+                                </h2>
+                                <p style={{
+                                    fontSize: 'clamp(0.8rem, 1.5vw, 1.1rem)',
+                                    lineHeight: '1.8',
+                                    fontFamily: 'Lateef, serif',
+                                    opacity: 0.9
+                                }}>
+                                    وهكذا تنتهي أسطورة هولينج هولو، حيث تتشابك الأحلام والواقع في ظلال الليل.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </HTMLFlipBook>
         </div>
     );

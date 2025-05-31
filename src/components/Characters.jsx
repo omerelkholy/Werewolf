@@ -79,7 +79,7 @@ function Characters() {
       id: 7,
       name: "Drunk",
       team: "Villagers",
-      description: "He is a weirdo moving around here and there doing something but drinking and acting strange not even remembering who he's.",
+      description: "He is a weirdo moving around here and there doing nothing but drinking even remembering who he's.",
       effectName: "oops I Clicked It",
       image: drunkImage,
       action: "Randomly swaps role with a ground card."
@@ -175,7 +175,7 @@ function Characters() {
   const currentCharacter = characters.find(b => b.id === selectedCard);
 
  return (
-    <div className="w-full h-full overflow-y-auto text-black p-4 flex flex-col items-center justify-center gap-4">
+    <div className="w-full h-full overflow-y-auto overflow-x-hidden text-black p-4 flex flex-col items-center justify-center gap-4 box-border max-w-full">
       <style>{`
 .cards {
   --width: clamp(280px, 90vw, 420px);
@@ -189,11 +189,13 @@ function Characters() {
 
 .cards {
   position: relative;
+  height: 520px; /* Fixed height to ensure consistent card size */
   width: var(--width);
   background: rgba(255, 255, 255, 0.95);
   background-image: url(${Parchment});
-  background-size: cover;
+  background-size: 100% 100%; /* Stretch to fit card dimensions */
   background-repeat: no-repeat;
+  background-position: center;
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
@@ -333,7 +335,7 @@ function Characters() {
             <h2 className={`${currentCharacter.team === "Werewolves" ? "text-red-800" : currentCharacter.team === "Villagers" ? "text-green-800" : "text-yellow-700"}`}>
               {currentCharacter?.name}
             </h2>
-            <ul>
+            <ul className='ml-7'>
               <li><span>Team:</span> {currentCharacter?.team}</li>
               <li><span>Description:</span> {currentCharacter?.description}</li>
               <li><span>Ability Name:</span> {currentCharacter?.effectName}</li>
