@@ -34,24 +34,24 @@ function Discussion() {
     const confirmNextPhase = () => {
         toast(
             ({ closeToast }) => (
-                <div className="bg-white/20 backdrop-blur-md border border-white/30 text-center rounded-xl p-6 shadow-xl">
-                    <p className="font-bold mb-4 text-lg text-amber-900 drop-shadow-sm">ARE YOU DONE YAPPING?!</p>
-                    <div className="flex justify-center gap-4 mt-4">
+                <div className="bg-white/20 backdrop-blur-md border border-white/30 text-center rounded-xl p-4 sm:p-6 shadow-xl w-[90vw] max-w-[300px] sm:max-w-[400px]">
+                    <p className="font-bold mb-3 text-base sm:text-lg text-amber-900 drop-shadow-sm">ARE YOU DONE YAPPING?!</p>
+                    <div className="flex justify-center gap-3 sm:gap-4 mt-3">
                         <PrimaryButton
                             onClick={() => {
                                 closeToast();
                                 nextPhase();
                             }}
-                            className="relative w-24 h-10 overflow-hidden transition"
+                            className="relative w-20 sm:w-24 h-9 sm:h-10 overflow-hidden transition touch-target"
                         >
-                            <span className="relative z-10 text-white font-bold">Yes</span>
+                            <span className="relative z-10 text-white text-sm sm:text-base font-bold">Yes</span>
                         </PrimaryButton>
 
                         <PrimaryButton
                             onClick={closeToast}
-                            className="relative w-24 h-10 overflow-hidden transition"
+                            className="relative w-20 sm:w-24 h-9 sm:h-10 overflow-hidden transition touch-target"
                         >
-                            <span className="relative z-10 text-white font-bold">Cancel</span>
+                            <span className="relative z-10 text-white text-sm sm:text-base font-bold">Cancel</span>
                         </PrimaryButton>
                     </div>
                 </div>
@@ -63,12 +63,11 @@ function Discussion() {
                 draggable: false,
                 closeButton: false,
                 hideProgressBar: true,
-                style: { background: 'transparent', boxShadow: 'none' },
+                style: { background: 'transparent', boxShadow: 'none', width: '100%', maxWidth: '90vw' },
                 bodyClassName: 'p-0 m-0',
             }
         );
     };
-
 
 
     const startTimer = () => {

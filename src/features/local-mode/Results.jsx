@@ -259,7 +259,7 @@ function Results() {
           className="text-center"
           variants={itemVariants}
         >
-          <div className="flex justify-center">
+          <div className="flex justify-center my-8 mb-12">
             <PrimaryButton
               name="Play Again"
               onClick={() => {
