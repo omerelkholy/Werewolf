@@ -163,22 +163,27 @@ function Discussion() {
                 </div>
 
                 {/* Timer with Plus/Minus Controls */}
-                <div className="w-full flex items-center justify-center gap-3 sm:gap-4 mb-2">
+                <div className="w-full flex items-center z-10 justify-center gap-3 sm:gap-4 mb-2">
                     {/* Minus Button */}
-                    <PrimaryButton
+                    <button
                         onClick={decreaseTime}
                         disabled={isActive || selectedMinutes <= 6}
-                        className={`p-2 sm:p-3 border-2 transition-all duration-200 rounded-lg`}
-                        style={{
-                            boxShadow: isActive || selectedMinutes <= 6 ? 'none' : '0 4px 8px rgba(139, 69, 19, 0.3)'
-                        }}
-                        width='20px'
-                        height='20px'
+                        className={`
+        min-w-[48px] min-h-[48px] 
+        p-3 sm:p-4 
+        border-2 rounded-full 
+        bg-amber-700 hover:bg-amber-800 
+        text-white transition-all duration-200 
+        flex items-center justify-center
+        touch-manipulation
+        ${isActive || selectedMinutes <= 6 ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
+    `}
+                        style={{ WebkitTapHighlightColor: 'transparent' }}
                     >
-                        <FiMinus className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </PrimaryButton>
+                        <FiMinus className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </button>
 
-                    {/* Timer Display */}
+                    {/* Timer Display - unchanged */}
                     <div
                         className="text-4xl sm:text-5xl md:text-6xl font-bold text-center px-4 sm:px-6 py-2 sm:py-3 min-w-[140px] sm:min-w-[180px] md:min-w-[200px]"
                         style={{
@@ -200,17 +205,23 @@ function Discussion() {
                     </div>
 
                     {/* Plus Button */}
-                    <PrimaryButton
+                    <button
                         onClick={increaseTime}
                         disabled={isActive || selectedMinutes >= 20}
-                        className={`p-2 sm:p-3 border-2 transition-all duration-200 rounded-lg`}
-                        style={{
-                            boxShadow: isActive || selectedMinutes >= 20 ? 'none' : '0 4px 8px rgba(139, 69, 19, 0.3)'
-                        }}
-                        height='20px'
+                        className={`
+        min-w-[48px] min-h-[48px] 
+        p-3 sm:p-4 
+        border-2 rounded-full 
+        bg-amber-700 hover:bg-amber-800 
+        text-white transition-all duration-200 
+        flex items-center justify-center
+        touch-manipulation
+        ${isActive || selectedMinutes >= 20 ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
+    `}
+                        style={{ WebkitTapHighlightColor: 'transparent' }}
                     >
-                        <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </PrimaryButton>
+                        <FiPlus className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </button>
                 </div>
 
                 {/* Progress Bar */}
