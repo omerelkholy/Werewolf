@@ -5,8 +5,29 @@ import RoleCard from "../../components/RoleCard";
 import { WithCardFlip } from "../../components/WithCardFlip";
 import ActionModal from "../../components/ActionModal";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaQuestionCircle } from 'react-icons/fa';
 import CardSound from "../../../public/audios/card_flip.mp3"
 const FlipCard = WithCardFlip(RoleCard);
+
+// Role Assignment text from HowToPlay.jsx
+const ROLE_ASSIGNMENT_TEXT = `The game starts with 6 players and 3 ground cards using these core roles:
+- Werewolf ×2
+- Minion
+- Mason ×2
+- Seer
+- Robber
+- TroubleMaker
+- Drunk
+
+When more players join, roles from the expansion are added in this order:
+7th player → Werewolf
+8th player → Sentinel
+9th player → Clone
+10th player → Insomniac
+11th player → Joker
+12th player → MysticWolf
+13th player → Witch
+14th player → DreamWolf`;
 
 function FirstPass() {
     const { players, assignedRoles, setCurrentPhase, submitAction } = useGame();
@@ -16,6 +37,7 @@ function FirstPass() {
     const [actionComplete, setActionComplete] = useState(false);
     const [pendingAction, setPendingAction] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showRoleModal, setShowRoleModal] = useState(false); // New state for role assignment modal
 
     const currentPlayer = players[currentIndex];
     const role = assignedRoles[currentPlayer];
@@ -66,6 +88,20 @@ function FirstPass() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 relative">
             <div className="overlay absolute inset-0"></div>
+
+            {/* Role Assignment Icon Top-Right */}
+            <div className="absolute top-4 right-4 z-10">
+                <motion.button
+                    onClick={() => setShowRoleModal(true)}
+                    className="text-[#d4be8c] hover:text-white transition-colors p-2"
+                    whileHover={{ scale: 1.1, rotate: 15 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="View Role Assignment"
+                >
+                    <FaQuestionCircle size={28} />
+                </motion.button>
+            </div>
+
             {/* Player name container - now responsive */}
             <div className="w-full max-w-md mx-auto mb-4 md:mb-6">
                 <AnimatePresence mode="wait">
@@ -118,6 +154,16 @@ function FirstPass() {
                         randomColor={randomColor}
                     />
                 )}
+            </ActionModal>
+
+            {/* Role Assignment Modal */}
+            <ActionModal show={showRoleModal} onClose={() => setShowRoleModal(false)}>
+                <div className="w-full font-serif text-center text-gray-800">
+                    <h2 className="text-xl sm:text-2xl italic text-white font-bold mb-2">Role Assignment</h2>
+                    <p className="text-sm sm:text-base text-gray-300 mb-4 whitespace-pre-line">
+                        {ROLE_ASSIGNMENT_TEXT}
+                    </p>
+                </div>
             </ActionModal>
         </div>
     );

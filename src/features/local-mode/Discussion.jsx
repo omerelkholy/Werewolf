@@ -7,10 +7,31 @@ import NightLogViewer from "./NightLogViewer";
 import ActionModal from "../../components/ActionModal";
 import PrimaryButton from "../../components/PrimaryButton"; // Import PrimaryButton
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { FaQuestionCircle } from 'react-icons/fa';
 import { IoInformationCircle } from "react-icons/io5";
 import { motion } from "framer-motion";
 
 const SECRET_PASSWORD = "moonlight";
+
+// Role Assignment text from HowToPlay.jsx
+const ROLE_ASSIGNMENT_TEXT = `The game starts with 6 players and 3 ground cards using these core roles:
+- Werewolf ×2
+- Minion
+- Mason ×2
+- Seer
+- Robber
+- TroubleMaker
+- Drunk
+
+When more players join, roles from the expansion are added in this order:
+7th player → Werewolf
+8th player → Sentinel
+9th player → Clone
+10th player → Insomniac
+11th player → Joker
+12th player → MysticWolf
+13th player → Witch
+14th player → DreamWolf`;
 
 function Discussion() {
     const { setCurrentPhase } = useGame();
@@ -18,6 +39,7 @@ function Discussion() {
     const [isActive, setIsActive] = useState(false);
     const [selectedMinutes, setSelectedMinutes] = useState(6); // Track selected minutes
     const [totalTime, setTotalTime] = useState(6 * 60); // Track total time for progress bar
+    const [showRoleModal, setShowRoleModal] = useState(false); // New state for role assignment modal
 
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [hasAccess, setHasAccess] = useState(false);
@@ -264,6 +286,19 @@ function Discussion() {
                     </PrimaryButton>
                 </div>
 
+                {/* Info Icon Top-left */}
+                <div className="absolute top-4 left-4 z-10">
+                    <motion.button
+                        onClick={() => setShowRoleModal(true)}
+                        className="text-[#d4be8c] hover:text-white transition-colors p-2"
+                        whileHover={{ scale: 1.1, rotate: 15 }}
+                        whileTap={{ scale: 0.95 }}
+                        aria-label="View Role Assignment"
+                    >
+                        <FaQuestionCircle size={26} />
+                    </motion.button>
+                </div>
+
                 {/* Info Icon Top-Right */}
                 <div className="absolute top-4 right-4 z-10">
                     <motion.button
@@ -317,6 +352,16 @@ function Discussion() {
                         </div>
                     </div>
                 )}
+            </ActionModal>
+
+            {/* Role Assignment Modal */}
+            <ActionModal show={showRoleModal} onClose={() => setShowRoleModal(false)}>
+                <div className="w-full font-serif text-center text-gray-800">
+                    <h2 className="text-xl sm:text-2xl italic text-white font-bold mb-2">Role Assignment</h2>
+                    <p className="text-sm sm:text-base text-gray-300 mb-4 whitespace-pre-line">
+                        {ROLE_ASSIGNMENT_TEXT}
+                    </p>
+                </div>
             </ActionModal>
         </div>
     );

@@ -161,6 +161,54 @@ export function HowToPlay({ onClose }) {
               >
                 {roleOrder[lang]}
               </motion.p>
+              <h2 className="text-3xl mt-3 font-bold mb-6 text-center font-[Cinzel] text-amber-900 border-b-2 border-amber-800/30 pb-2">
+                {lang === 'en' ? 'Role Assignment' : 'توزيع الأدوار'}
+              </h2>
+              <motion.p
+                className={`whitespace-pre-line text-lg ${lang === 'ar' ? 'text-right' : ''} leading-relaxed`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                {lang === 'en'
+                  ? `The game starts with 6 players and 3 ground cards using these core roles:
+              - Werewolf ×2
+              - Minion
+              - Mason ×2
+              - Seer
+              - Robber
+              - TroubleMaker
+              - Drunk
+
+When more players join, roles from the expansion are added in this order:
+7th player → Werewolf
+8th player → Sentinel
+9th player → Clone
+10th player → Insomniac
+11th player → Joker
+12th player → MysticWolf
+13th player → Witch
+14th player → DreamWolf`
+                  : `اللعبة بتبدأ بـ 6 لاعبين و3 كروت في النص باستخدام الأدوار الأساسية:
+ مستذئب ×2  -
+ التابع -
+ المايسون ×2 -
+عرفة الشواف -
+ الحرامي -
+ بتاع المشاكل -
+ الخمورجي -
+
+كل ما حد جديد ينضم، دور جديد من الإكسبانشن بيتضاف بالترتيب ده:
+اللاعب السابع → مستذئب
+اللاعب الثامن → المدافع
+اللاعب التاسع → المستنسخ
+اللاعب العاشر → أبو أرق
+اللاعب الحادي عشر → الكلاون
+اللاعب الثاني عشر → المستذئب المشعوذ
+اللاعب الثالث عشر → الدجالة
+اللاعب الرابع عشر → مستذئب الأحلام`}
+              </motion.p>
+
             </div>
           </motion.div>
         </motion.div>
