@@ -14,24 +14,31 @@ import { motion } from "framer-motion";
 const SECRET_PASSWORD = "moonlight";
 
 // Role Assignment text from HowToPlay.jsx
-const ROLE_ASSIGNMENT_TEXT = `The game starts with 6 players and 3 ground cards using these core roles:
-- Werewolf ×2
-- Minion
-- Mason ×2
-- Seer
-- Robber
-- TroubleMaker
-- Drunk
+const ROLE_ASSIGNMENT_TEXT = `
+Role Assignment Rules
 
-When more players join, roles from the expansion are added in this order:
-7th player → Werewolf
-8th player → Sentinel
-9th player → Clone
-10th player → Insomniac
-11th player → Joker
-12th player → MysticWolf
-13th player → Witch
-14th player → DreamWolf`;
+Action Order:
+Werewolf → Minion → Mason → Sentinel → Clone → MysticWolf → Seer → Robber → TroubleMaker → Witch → Drunk → Insomniac → Joker → DreamWolf
+
+Core Game (6 Players + 3 Ground Cards):
+- Werewolf (x2)
+- Minion (x1)
+- Mason (x2)
+- Seer (x1)
+- Robber (x1)
+- TroubleMaker (x1)
+- Drunk (x1)
+
+Additional Roles (Added with More Players):
+- 7th Player: Werewolf
+- 8th Player: Sentinel
+- 9th Player: Clone
+- 10th Player: Insomniac
+- 11th Player: Joker
+- 12th Player: MysticWolf
+- 13th Player: Witch
+- 14th Player: DreamWolf
+`;
 
 function Discussion() {
     const { setCurrentPhase } = useGame();
@@ -356,9 +363,11 @@ function Discussion() {
 
             {/* Role Assignment Modal */}
             <ActionModal show={showRoleModal} onClose={() => setShowRoleModal(false)}>
-                <div className="w-full font-serif text-center text-gray-800">
+                <div className="-full max-w-[85%] font-serif text-center bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 pt-12 border border-amber-500/30 shadow-lg max-h-[70vh] overflow-y-auto"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', '::-webkit-scrollbar': { display: 'none' } }}
+                >
                     <h2 className="text-xl sm:text-2xl italic text-white font-bold mb-2">Role Assignment</h2>
-                    <p className="text-sm sm:text-base text-gray-300 mb-4 whitespace-pre-line">
+                    <p className="text-sm sm:text-base text-amber-200 mb-4 whitespace-pre-line">
                         {ROLE_ASSIGNMENT_TEXT}
                     </p>
                 </div>

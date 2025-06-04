@@ -257,9 +257,9 @@ function Characters() {
 }
 
 .article h2 {
-  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-size: clamp(1.8rem, 3vw, 1.8rem);
   text-align: center;
-  font-weight: 700;
+  font-weight: bold;
   margin-bottom: 1rem;
   animation: slideInUp 300ms ease-out forwards;
   animation-delay: 250ms;
@@ -346,7 +346,7 @@ function Characters() {
 
         <div className="contents">
           <article key={animationKey} className="article mt-17">
-            <h2 className={`${currentCharacter.team === "Werewolves" ? "text-red-800" : currentCharacter.team === "Villagers" ? "text-green-800" : "text-yellow-700"}`}>
+            <h2 className={`${currentCharacter.team === "Werewolves" ? "text-red-800" : currentCharacter.team === "Villagers" ? "text-green-800" : "text-yellow-800"}`}>
               {currentCharacter?.name}
             </h2>
             <ul className='ml-6'>
