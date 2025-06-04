@@ -197,7 +197,6 @@ function Characters() {
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -208,7 +207,7 @@ function Characters() {
 
 .circle-container {
   position: absolute;
-  top: calc(var(--radius) * -0.95);
+  top: calc(var(--radius) * -0.93);
   left: 50%;
   width: var(--item-size);
   height: var(--item-size);
@@ -249,6 +248,7 @@ function Characters() {
   padding: 1rem 1.2rem;
   display: grid;
   gap: 1rem;
+  postion: relative;
 }
 
 @keyframes slideInUp {
@@ -291,20 +291,34 @@ function Characters() {
 
 .buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0% 7% ;
+  align-items: center;
   gap: 1.5rem;
   margin-top: 0.5rem;
-}
+  width: 100%;
+  position: absolute;
+  bottom: 20rem;
+  left: 50%;
+  transform: translateX(-50%);}
 
 .nav-button {
   background: rgba(0, 0, 0, 0.05);
   border: none;
   padding: 0.4rem 1rem;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.5rem, 4vw, 2rem); /* Keeps size proportional */
   cursor: pointer;
   color: #333;
   border-radius: 6px;
   transition: background 0.2s;
+  position: relative;
+  bottom: 5%;
+  flex-shrink: 0;
+  width: clamp(40px, 8vw, 60px);  /* responsive width */
+  height: clamp(40px, 8vw, 60px); /* responsive height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-button:hover {
@@ -331,11 +345,11 @@ function Characters() {
         </div>
 
         <div className="contents">
-          <article key={animationKey} className="article mt-15">
+          <article key={animationKey} className="article mt-17">
             <h2 className={`${currentCharacter.team === "Werewolves" ? "text-red-800" : currentCharacter.team === "Villagers" ? "text-green-800" : "text-yellow-700"}`}>
               {currentCharacter?.name}
             </h2>
-            <ul className='ml-7'>
+            <ul className='ml-6'>
               <li><span>Team:</span> {currentCharacter?.team}</li>
               <li><span>Description:</span> {currentCharacter?.description}</li>
               <li><span>Ability Name:</span> {currentCharacter?.effectName}</li>

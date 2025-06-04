@@ -3,19 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HowToPlay } from '../components/HowToPlay';
 import MedievalPrimaryButton from '../components/MedievalPrimaryButton';
 import { FaBook, FaPlay, FaQuestion, FaUsers } from 'react-icons/fa';
-import Book from '../components/Book'; // Import the BookFlipCarousel component
-import Characters from '../components/Characters'; // Import the Characters component
+import Book from '../components/Book';
+import Characters from '../components/Characters';
 import { IoClose } from 'react-icons/io5';
+import BackGround from '../../public/images/desktop.png';
 
 function MainEntryScreen({ onStart }) {
   const [showModal, setShowModal] = useState(false);
-  const [showStoryBook, setShowStoryBook] = useState(false); // New state for story book
-  const [showCharacters, setShowCharacters] = useState(false); // New state for characters
+  const [showStoryBook, setShowStoryBook] = useState(false);
+  const [showCharacters, setShowCharacters] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const [buttonsVisible, setButtonsVisible] = useState(false);
 
-  // Staggered animation on mount
   useEffect(() => {
     const sequence = async () => {
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -30,20 +30,20 @@ function MainEntryScreen({ onStart }) {
   }, []);
 
   const handleStoryBookClick = () => {
-    setShowStoryBook(true); // Show the story book when clicked
+    setShowStoryBook(true);
   };
 
   const handleCloseStoryBook = () => {
-    setShowStoryBook(false); // Close the story book
+    setShowStoryBook(false);
   };
 
   const handleShowCharacters = () => {
     setShowCharacters(true);
-  }
+  };
 
   const handleCloseCharacters = () => {
     setShowCharacters(false);
-  }
+  };
 
   return (
     <div className="relative w-full h-screen bg-cover bg-center overflow-hidden">
@@ -56,11 +56,9 @@ function MainEntryScreen({ onStart }) {
         `}
       </style>
 
-      {/* Atmospheric layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-amber-50 text-center px-4">
-        {/* Title */}
         <AnimatePresence>
           {titleVisible && (
             <motion.div
@@ -85,7 +83,6 @@ function MainEntryScreen({ onStart }) {
           )}
         </AnimatePresence>
 
-        {/* Subtitle */}
         <AnimatePresence>
           {subtitleVisible && (
             <motion.p
@@ -100,7 +97,6 @@ function MainEntryScreen({ onStart }) {
           )}
         </AnimatePresence>
 
-        {/* Buttons */}
         <AnimatePresence>
           {buttonsVisible && (
             <motion.div
@@ -110,8 +106,8 @@ function MainEntryScreen({ onStart }) {
               transition={{ duration: 0.8 }}
               layout
             >
-               <MedievalPrimaryButton
-                onClick={handleShowCharacters} // Updated to use the new handler
+              <MedievalPrimaryButton
+                onClick={handleShowCharacters}
                 name="Characters"
                 icon={<FaUsers />}
                 width="230px"
@@ -120,7 +116,7 @@ function MainEntryScreen({ onStart }) {
                 whileTap={{ scale: 0.98 }}
               />
               <MedievalPrimaryButton
-                onClick={handleStoryBookClick} // Updated to use the new handler
+                onClick={handleStoryBookClick}
                 name="Story book"
                 icon={<FaBook />}
                 width="230px"
@@ -151,7 +147,6 @@ function MainEntryScreen({ onStart }) {
         </AnimatePresence>
       </div>
 
-      {/* How to Play Modal */}
       <AnimatePresence>
         {showModal && (
           <HowToPlay
@@ -161,7 +156,6 @@ function MainEntryScreen({ onStart }) {
         )}
       </AnimatePresence>
 
-      {/* Story Book Modal */}
       <AnimatePresence>
         {showStoryBook && (
           <motion.div
@@ -194,7 +188,6 @@ function MainEntryScreen({ onStart }) {
         )}
       </AnimatePresence>
 
-      {/* Characters Modal */}
       <AnimatePresence>
         {showCharacters && (
           <motion.div
@@ -202,26 +195,38 @@ function MainEntryScreen({ onStart }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#ceb27b] bg-opacity-80 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{
+              backgroundImage: `url(${BackGround})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
             onClick={handleCloseCharacters}
           >
+            <div
+              className="absolute inset-0"
+              style={{
+                backdropFilter: 'blur(5px)',
+                zIndex: 1,
+              }}
+            />
+            <motion.button
+              onClick={handleCloseCharacters}
+              className="absolute top-4 right-4 text-3xl text-red-800 hover:text-red-600 transition-colors z-20"
+              whileHover={{ scale: 1.2, rotate: 90 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <IoClose />
+            </motion.button>
             <motion.div
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="w-full max-w-6xl max-h-[90vh] overflow-hidden"
+              className="w-full max-w-[420px] max-h-[90vh] overflow-hidden relative z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <Characters />
-              <motion.button
-                onClick={handleCloseCharacters}
-                className="absolute top-2 right-3 text-3xl text-red-800 hover:text-red-600 transition-colors"
-                whileHover={{ scale: 1.2, rotate: 90 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <IoClose />
-              </motion.button>
             </motion.div>
           </motion.div>
         )}
